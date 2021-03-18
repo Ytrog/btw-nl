@@ -1,4 +1,4 @@
-use dialoguer::{Confirm, Editor, Select, MultiSelect, console::Term, console::Style, Input};
+use dialoguer::{Confirm, Select, console::Term, console::Style, Input};
 
 enum Action {
     BtwBrutoHoog,
