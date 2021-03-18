@@ -1,4 +1,5 @@
 use dialoguer::{Confirm, Select, console::Term, console::Style, Input};
+use std::convert;
 
 enum Action {
     BtwBrutoHoog,
@@ -6,6 +7,23 @@ enum Action {
     BtwNettoHoog,
     BtwNettoLaag,
     Stop
+}
+
+/// pause console
+fn pause() {
+    println!("Druk op een toets om verder te gaan");
+    Term::stdout().read_key().unwrap();
+}
+
+fn ask_bruto(percentage: u8) {
+    let input: f64 = Input::new().with_prompt("Bedrag").interact_text().unwrap();
+    println!("{}", calc_bruto(input, percentage));
+    pause();
+}
+
+fn calc_bruto(value: f64, percentage: u8) -> f64{
+    let p = f64::from(percentage); // u8 to prevent negatives
+    value/(100.0 + p) * p
 }
 
 fn stop() -> bool{
@@ -40,7 +58,7 @@ fn main() {
 
     loop {
     match get_action() {
-        Action::BtwBrutoHoog => continue,
+        Action::BtwBrutoHoog => ask_bruto(21),
         Action::Stop => if stop() {
             break;
         },
