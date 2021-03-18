@@ -1,10 +1,18 @@
 use dialoguer::{Confirm, Editor, Select, MultiSelect, console::Term, console::Style, Input};
 
+enum Action {
+    BtwBrutoHoog,
+    BtwBrutoLaag,
+    BtwNettoHoog,
+    BtwNettoLaag,
+    Stop
+}
+
 fn stop() -> bool{
     Confirm::new().with_prompt("Stoppen?").interact().unwrap_or(true)
 }
 
-fn get_action() -> usize {
+fn get_action() -> Action {
     let action = Select::new()
     .with_prompt("Wat wilt u doen (gebruik pijltjestoetsen om te selecteren en vervolgens enter)")
     .item("Btw hoog berekenen vanuit bruto bedrag")
@@ -14,7 +22,14 @@ fn get_action() -> usize {
     .item(Style::new().red().bright().apply_to("Stoppen"))
     .interact().unwrap();
 
-    action
+    match action {
+        0 => Action::BtwBrutoHoog,
+        1 => Action::BtwBrutoLaag,
+        2 => Action::BtwNettoHoog,
+        3 => Action::BtwNettoLaag,
+        4 => Action::Stop,
+        _ => Action::Stop
+    }
 }
 
 fn main() {
@@ -25,8 +40,8 @@ fn main() {
 
     loop {
     match get_action() {
-        a if a < 4 => println!("{}", a),
-        4 => if stop() {
+        Action::BtwBrutoHoog => continue,
+        Action::Stop => if stop() {
             break;
         },
         _ => unreachable!()
