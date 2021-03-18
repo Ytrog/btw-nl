@@ -1,9 +1,11 @@
 [package]
 name = "btw-nl"
 version = "0.1.0"
-authors = ["Ytrog <hisbrucker@gmail.com>"]
+authors = ["Ytrog"]
 edition = "2018"
+license-file = "LICENSE"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+console = "0.14.1"
