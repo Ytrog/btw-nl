@@ -1,4 +1,8 @@
-use dialoguer::{Confirm, Editor, Select, MultiSelect, console::Term, Input};
+use dialoguer::{Confirm, Editor, Select, MultiSelect, console::Term, console::Style, Input};
+
+fn stop() -> bool{
+    Confirm::new().with_prompt("Stoppen?").interact().unwrap_or(true)
+}
 
 fn get_action() -> usize {
     let action = Select::new()
@@ -7,7 +11,7 @@ fn get_action() -> usize {
     .item("Btw laag berekenen vanuit bruto bedrag")
     .item("Btw hoog berekenen vanuit netto bedrag")
     .item("Btw laag berekenen vanuit netto bedrag")
-    .item("Stoppen")
+    .item(Style::new().red().bright().apply_to("Stoppen"))
     .interact().unwrap();
 
     action
@@ -16,11 +20,16 @@ fn get_action() -> usize {
 fn main() {
     let term = Term::stdout();
     term.write_line("BTW berekenaar").unwrap();
-    let warn = console::Style::new().red();
+    let _warn = Style::new().red();
+    term.set_title("BTW berekenaar");
 
+    loop {
     match get_action() {
         a if a < 4 => println!("{}", a),
-        4 => println!("{}", warn.apply_to("Stoppen")),
+        4 => if stop() {
+            break;
+        },
         _ => unreachable!()
+    }
     }
 }
