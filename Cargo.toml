@@ -12,3 +12,4 @@ description = "Dutch VAT calculator for commandline"
 
 [dependencies]
 console = "0.14.1"
+dialoguer = "0.8.0"
