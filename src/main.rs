@@ -28,6 +28,13 @@ fn ask_bruto(percentage: u8) {
     pause();
 }
 
+/// ask for bruto value with percentage
+fn ask_netto(percentage: u8) {
+    let input: f64 = Input::new().with_prompt("Bedrag").interact_text().unwrap();
+    println!("{}", calc::calc_netto(input, percentage));
+    pause();
+}
+
 /// Ask if program should be stopped
 fn stop() -> bool {
     Confirm::new()
@@ -70,12 +77,13 @@ fn main() {
         match get_action() {
             Action::BtwBrutoHoog => ask_bruto(21),
             Action::BtwBrutoLaag => ask_bruto(9),
+            Action::BtwNettoHoog => ask_netto(21),
+            Action::BtwNettoLaag => ask_netto(9),
             Action::Stop => {
                 if stop() {
                     break;
                 }
             }
-            _ => unreachable!(),
         }
     }
 }
