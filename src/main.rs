@@ -1,5 +1,7 @@
 use dialoguer::{console::Style, console::Term, Confirm, Input, Select};
 
+mod calc;
+
 enum Action {
     BtwBrutoHoog,
     BtwBrutoLaag,
@@ -19,17 +21,14 @@ fn clear() {
     Term::stdout().clear_screen().unwrap();
 }
 
+/// ask for bruto value with percentage
 fn ask_bruto(percentage: u8) {
     let input: f64 = Input::new().with_prompt("Bedrag").interact_text().unwrap();
-    println!("{}", calc_bruto(input, percentage));
+    println!("{}", calc::calc_bruto(input, percentage));
     pause();
 }
 
-fn calc_bruto(value: f64, percentage: u8) -> f64 {
-    let p = f64::from(percentage); // u8 to prevent negatives
-    value / (100.0 + p) * p
-}
-
+/// Ask if program should be stopped
 fn stop() -> bool {
     Confirm::new()
         .with_prompt("Stoppen?")
