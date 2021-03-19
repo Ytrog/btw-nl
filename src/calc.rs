@@ -64,4 +64,29 @@ mod tests {
 
         assert_eq!(expected, actual);
     }
+
+    #[test]
+    fn bruto_laag_correct() {
+        let bruto = 109.0;
+        let expected = Amount {
+            tax: 9.0,
+            bruto: bruto,
+            netto: 100.0,
+            percentage: 9,
+        };
+
+        let actual = calc_bruto(bruto, 9);
+
+        assert_eq!(expected, actual);
+    }
+
+    #[test]
+    #[ignore]
+    fn bruto_hoog_negative() {
+        let bruto = -121.0;
+
+        let actual = calc_bruto(bruto, 21);
+        dbg!(actual);
+        todo!();
+    }
 }
