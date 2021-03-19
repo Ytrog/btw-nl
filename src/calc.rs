@@ -12,7 +12,7 @@ impl std::fmt::Display for Amount {
         // The `f` value implements the `Write` trait, which is what the
         // write! macro is expecting. Note that this formatting ignores the
         // various flags provided to format strings.
-        write!(f, "Netto: {}\nBruto: {}\nBtw bedrag: {}\nBtw percentage: {}"
+        write!(f, "Netto: {:.2}\nBruto: {:.2}\nBtw bedrag: {:.2}\nBtw percentage: {}"
         , self.netto, self.bruto, self.tax, self.percentage)
     }
 }
