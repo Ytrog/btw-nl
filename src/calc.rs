@@ -81,6 +81,17 @@ mod tests {
     }
 
     #[test]
+    fn bruto_netto_consistent() {
+        let bruto = 1.50;
+        let netto = 1.24;
+
+        let actual_bruto = calc_bruto(bruto, 21);
+        let actual_netto = calc_netto(netto, 21);
+
+        assert_eq!(actual_bruto.bruto, actual_netto.bruto);
+    }
+
+    #[test]
     #[ignore]
     fn bruto_hoog_negative() {
         let bruto = -121.0;
