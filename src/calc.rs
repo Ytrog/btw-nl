@@ -88,7 +88,7 @@ mod tests {
         let actual_bruto = calc_bruto(bruto, 21);
         let actual_netto = calc_netto(netto, 21);
 
-        assert_eq!(actual_bruto.bruto, actual_netto.bruto);
+        assert_eq!(format!("{}", actual_bruto), format!("{}", actual_netto));
     }
 
     #[test]
