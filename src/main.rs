@@ -1,6 +1,7 @@
 use dialoguer::{console::Style, console::Term, Confirm, Input, Select};
 
 mod calc;
+mod types;
 
 enum Action {
     BtwBrutoHoog,
