@@ -34,6 +34,13 @@ impl From<f64> for Money {
     }
 }
 
+impl Into<f64> for Money {
+    fn into(self) -> f64 {
+        let cents = self.cents as f64;
+        cents / 100.0
+    }
+}
+
 /// calc from bruto
 pub fn calc_bruto(value: f64, percentage: u8) -> Amount {
     let p = f64::from(percentage); // u8 to prevent negatives
@@ -157,6 +164,15 @@ mod tests {
         let float = 1.83;
         let expected = Money{cents: 183};
         let actual = Money::from(float);
+
+        assert_eq!(expected, actual);
+    }
+
+    #[test]
+    fn money_to_float() {
+        let money = Money{cents:183};
+        let expected = 1.83;
+        let actual:f64 = money.into();
 
         assert_eq!(expected, actual);
     }
