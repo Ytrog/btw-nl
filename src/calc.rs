@@ -22,6 +22,18 @@ impl std::fmt::Display for Amount {
     }
 }
 
+#[derive(Debug, PartialEq)]
+pub struct Money {
+    cents: i64
+}
+
+impl From<f64> for Money {
+    fn from(fractional: f64) -> Self {
+        let cents = 100.0 * fractional;
+        Money {cents: cents as i64 }
+    }
+}
+
 /// calc from bruto
 pub fn calc_bruto(value: f64, percentage: u8) -> Amount {
     let p = f64::from(percentage); // u8 to prevent negatives
