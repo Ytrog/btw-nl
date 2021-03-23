@@ -50,6 +50,13 @@ pub fn calc_netto(value: f64, percentage: u8) -> Amount {
 mod tests {
     use crate::calc::*;
 
+    /// assert that the formatting output is equal between `expected` and `actual`
+    macro_rules! assert_feq {
+        ($expected:expr, $actual:expr) => {
+            assert_eq!(format!("{}", $expected), format!("{}", $actual));
+        };
+    }
+
     #[test]
     fn bruto_hoog_correct() {
         let bruto = 121.0;
@@ -89,6 +96,23 @@ mod tests {
         let actual_netto = calc_netto(netto, 21);
 
         assert_eq!(format!("{}", actual_bruto), format!("{}", actual_netto));
+    }
+
+    #[test]
+    fn bruto_rounding_correct() {
+        let bruto = 34.89;
+
+        let expected = Amount {
+            netto: 28.83,
+            bruto,
+            tax: 6.06,
+            percentage: 21
+        };
+
+        let actual = calc_bruto(bruto, 21);
+
+        assert_feq!(expected, actual);
+        
     }
 
     #[test]
