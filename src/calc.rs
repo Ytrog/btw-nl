@@ -151,4 +151,13 @@ mod tests {
         dbg!(actual);
         todo!();
     }
+
+    #[test]
+    fn money_from_float() {
+        let float = 1.83;
+        let expected = Money{cents: 183};
+        let actual = Money::from(float);
+
+        assert_eq!(expected, actual);
+    }
 }
