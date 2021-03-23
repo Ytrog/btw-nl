@@ -106,13 +106,28 @@ mod tests {
             netto: 28.83,
             bruto,
             tax: 6.06,
-            percentage: 21
+            percentage: 21,
         };
 
         let actual = calc_bruto(bruto, 21);
 
         assert_feq!(expected, actual);
-        
+    }
+
+    #[test]
+    fn netto_rounding_correct() {
+        let netto = 28.83;
+
+        let expected = Amount {
+            netto,
+            bruto: 34.89,
+            tax: 6.06,
+            percentage: 21,
+        };
+
+        let actual = calc_netto(netto, 21);
+
+        assert_feq!(expected, actual);
     }
 
     #[test]
