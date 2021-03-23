@@ -1,5 +1,4 @@
 use std::fmt;
-//use std::cmp;
 
 #[derive(Debug, PartialEq)]
 pub struct Amount {
@@ -24,13 +23,15 @@ impl std::fmt::Display for Amount {
 
 #[derive(Debug, PartialEq)]
 pub struct Money {
-    cents: i64
+    cents: i64,
 }
 
 impl From<f64> for Money {
     fn from(fractional: f64) -> Self {
         let cents = 100.0 * fractional;
-        Money {cents: cents as i64 }
+        Money {
+            cents: cents as i64,
+        }
     }
 }
 
@@ -162,7 +163,7 @@ mod tests {
     #[test]
     fn money_from_float() {
         let float = 1.83;
-        let expected = Money{cents: 183};
+        let expected = Money { cents: 183 };
         let actual = Money::from(float);
 
         assert_eq!(expected, actual);
@@ -170,9 +171,9 @@ mod tests {
 
     #[test]
     fn money_to_float() {
-        let money = Money{cents:183};
+        let money = Money { cents: 183 };
         let expected = 1.83;
-        let actual:f64 = money.into();
+        let actual: f64 = money.into();
 
         assert_eq!(expected, actual);
     }
