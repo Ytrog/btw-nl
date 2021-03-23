@@ -55,7 +55,7 @@ mod tests {
         let bruto = 121.0;
         let expected = Amount {
             tax: 21.0,
-            bruto: bruto,
+            bruto,
             netto: 100.0,
             percentage: 21,
         };
@@ -70,7 +70,7 @@ mod tests {
         let bruto = 109.0;
         let expected = Amount {
             tax: 9.0,
-            bruto: bruto,
+            bruto,
             netto: 100.0,
             percentage: 9,
         };
