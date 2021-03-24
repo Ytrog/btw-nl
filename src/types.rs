@@ -1,9 +1,9 @@
-use std::fmt;
+use std::fmt::{self, Display};
 #[derive(Debug, PartialEq)]
 pub struct Amount {
-    pub netto: f64,
-    pub bruto: f64,
-    pub tax: f64,
+    pub netto: Money,
+    pub bruto: Money,
+    pub tax: Money,
     pub percentage: u8,
 }
 
@@ -38,6 +38,12 @@ impl Into<f64> for Money {
     fn into(self) -> f64 {
         let cents = self.cents as f64;
         cents / 100.0
+    }
+}
+
+impl Display for Money {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "{}", self.cents)
     }
 }
 
