@@ -2,8 +2,8 @@ use crate::types::{Amount, Money};
 
 /// calc from bruto
 pub fn calc_bruto(value: Money, percentage: u8) -> Amount {
-    let p =percentage as i64; // u8 to prevent negatives
-    let tax = Money::new(value.cents / (100 + p) * p);
+    let p =percentage as f64; // u8 to prevent negatives
+    let tax = Money::new(value.cents / (100.0 + p) * p);
     Amount {
         tax,
         bruto: value,
@@ -14,8 +14,8 @@ pub fn calc_bruto(value: Money, percentage: u8) -> Amount {
 
 /// calc from netto
 pub fn calc_netto(value: Money, percentage: u8) -> Amount {
-    let p = percentage as i64; // u8 to prevent negatives
-    let tax = Money::new(value.cents * p / 100);
+    let p = percentage as f64; // u8 to prevent negatives
+    let tax = Money::new(value.cents * (p / 100.0));
     Amount {
         tax,
         bruto: value + tax,

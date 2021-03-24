@@ -22,12 +22,12 @@ impl std::fmt::Display for Amount {
 
 #[derive(Debug, PartialEq, Clone, Copy)]
 pub struct Money {
-    pub cents: i64,
+    pub cents: f64,
 }
 
 impl Money {
-    pub fn new(cents: i64) -> Self {
-        Money{cents}
+    pub fn new(cents: f64) -> Self {
+        Money{cents: cents.round()}
     }
 }
 
@@ -35,7 +35,7 @@ impl From<f64> for Money {
     fn from(fractional: f64) -> Self {
         let cents = 100.0 * fractional;
         Money {
-            cents: cents.round() as i64,
+            cents: cents.round(),
         }
     }
 }
@@ -73,7 +73,7 @@ impl Div for Money {
     type Output = Self;
 
     fn div(self, rhs: Self) -> Self::Output {
-        Money::new(self.cents / rhs.cents)
+        Money::new((self.cents / rhs.cents).round())
     }
 }
 
@@ -84,7 +84,7 @@ mod tests {
     #[test]
     fn money_from_float() {
         let float = 1.83;
-        let expected = Money { cents: 183 };
+        let expected = Money { cents: 183.0 };
         let actual = Money::from(float);
 
         assert_eq!(expected, actual);
@@ -92,7 +92,7 @@ mod tests {
 
     #[test]
     fn money_to_float() {
-        let money = Money { cents: 183 };
+        let money = Money { cents: 183.0 };
         let expected = 1.83;
         let actual: f64 = money.into();
 
@@ -102,7 +102,7 @@ mod tests {
     #[test]
     fn money_float_trucated() {
         let float = 13.3742;
-        let expected = Money { cents: 1337 };
+        let expected = Money { cents: 1337.0 };
         let actual = Money::from(float);
 
         assert_eq!(expected, actual);
@@ -111,7 +111,7 @@ mod tests {
     #[test]
     fn money_float_rounded() {
         let float = 13.3750;
-        let expected = Money { cents: 1338 };
+        let expected = Money { cents: 1338.0 };
         let actual = Money::from(float);
 
         assert_eq!(expected, actual);
