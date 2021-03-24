@@ -1,4 +1,4 @@
-use std::fmt::{self, Display};
+use std::{fmt::{self, Display}, ops::Add};
 #[derive(Debug, PartialEq)]
 pub struct Amount {
     pub netto: Money,
@@ -25,6 +25,12 @@ pub struct Money {
     pub cents: i64,
 }
 
+impl Money {
+    fn new(cents: i64) -> Self {
+        Money{cents}
+    }
+}
+
 impl From<f64> for Money {
     fn from(fractional: f64) -> Self {
         let cents = 100.0 * fractional;
@@ -44,6 +50,14 @@ impl Into<f64> for Money {
 impl Display for Money {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         write!(f, "{}", self.cents)
+    }
+}
+
+impl Add for Money {
+    type Output = Self;
+
+    fn add(self, rhs: Self) -> Self::Output {
+        Money::new(self.cents + rhs.cents)
     }
 }
 
