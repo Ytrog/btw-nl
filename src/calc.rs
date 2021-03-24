@@ -105,7 +105,10 @@ mod tests {
 
         let actual = calc_netto(netto, 21);
 
-        assert_feq!(expected, actual);
+        // small rounding error of max 1 cents expected
+        let abs_rounding_error:f64 = (expected.bruto - actual.bruto).cents.abs() / 100.0;
+        assert!(abs_rounding_error <= 10e-2, "abs={}", abs_rounding_error);
+
     }
 
     #[test]
