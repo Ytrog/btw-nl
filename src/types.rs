@@ -29,7 +29,7 @@ impl From<f64> for Money {
     fn from(fractional: f64) -> Self {
         let cents = 100.0 * fractional;
         Money {
-            cents: cents as i64,
+            cents: cents.round() as i64,
         }
     }
 }
@@ -59,6 +59,24 @@ mod tests {
         let money = Money { cents: 183 };
         let expected = 1.83;
         let actual: f64 = money.into();
+
+        assert_eq!(expected, actual);
+    }
+
+    #[test]
+    fn money_float_trucated() {
+        let float = 13.3742;
+        let expected = Money { cents: 1337 };
+        let actual = Money::from(float);
+
+        assert_eq!(expected, actual);
+    }
+
+    #[test]
+    fn money_float_rounded() {
+        let float = 13.3750;
+        let expected = Money { cents: 1338 };
+        let actual = Money::from(float);
 
         assert_eq!(expected, actual);
     }
