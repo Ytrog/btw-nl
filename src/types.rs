@@ -1,4 +1,4 @@
-use std::{fmt::{self, Display}, ops::{Add, Div}};
+use std::{fmt::{self, Display}, ops::{Add, Div, Sub}};
 #[derive(Debug, PartialEq)]
 pub struct Amount {
     pub netto: Money,
@@ -20,13 +20,13 @@ impl std::fmt::Display for Amount {
     }
 }
 
-#[derive(Debug, PartialEq)]
+#[derive(Debug, PartialEq, Clone, Copy)]
 pub struct Money {
     pub cents: i64,
 }
 
 impl Money {
-    fn new(cents: i64) -> Self {
+    pub fn new(cents: i64) -> Self {
         Money{cents}
     }
 }
@@ -58,6 +58,14 @@ impl Add for Money {
 
     fn add(self, rhs: Self) -> Self::Output {
         Money::new(self.cents + rhs.cents)
+    }
+}
+
+impl Sub for Money {
+    type Output = Self;
+
+    fn sub(self, rhs: Self) -> Self::Output {
+        Money::new(self.cents - rhs.cents)
     }
 }
 
