@@ -2,7 +2,7 @@ use crate::types::{Amount, Money};
 
 /// calc from bruto
 pub fn calc_bruto(value: Money, percentage: u8) -> Amount {
-    let p =percentage as f64; // u8 to prevent negatives
+    let p = percentage as f64; // u8 to prevent negatives
     let tax = Money::new(value.cents / (100.0 + p) * p);
     Amount {
         tax,
@@ -106,9 +106,8 @@ mod tests {
         let actual = calc_netto(netto, 21);
 
         // small rounding error of max 1 cents expected
-        let abs_rounding_error:f64 = (expected.bruto - actual.bruto).cents.abs() / 100.0;
+        let abs_rounding_error: f64 = (expected.bruto - actual.bruto).cents.abs() / 100.0;
         assert!(abs_rounding_error <= 10e-2, "abs={}", abs_rounding_error);
-
     }
 
     #[test]

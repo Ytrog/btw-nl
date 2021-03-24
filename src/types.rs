@@ -1,4 +1,7 @@
-use std::{fmt::{self, Display}, ops::{Add, Div, Sub}};
+use std::{
+    fmt::{self, Display},
+    ops::{Add, Div, Sub},
+};
 #[derive(Debug, PartialEq)]
 pub struct Amount {
     pub netto: Money,
@@ -27,7 +30,9 @@ pub struct Money {
 
 impl Money {
     pub fn new(cents: f64) -> Self {
-        Money{cents: cents.round()}
+        Money {
+            cents: cents.round(),
+        }
     }
 }
 
