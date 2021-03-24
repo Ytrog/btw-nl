@@ -1,4 +1,4 @@
-use crate::types::{Amount};
+use crate::types::Amount;
 
 /// calc from bruto
 pub fn calc_bruto(value: f64, percentage: u8) -> Amount {
