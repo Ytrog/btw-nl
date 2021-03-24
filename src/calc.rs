@@ -1,9 +1,9 @@
-use crate::types::Amount;
+use crate::types::{Amount, Money};
 
 /// calc from bruto
-pub fn calc_bruto(value: f64, percentage: u8) -> Amount {
-    let p = f64::from(percentage); // u8 to prevent negatives
-    let tax = value / (100.0 + p) * p;
+pub fn calc_bruto(value: Money, percentage: u8) -> Amount {
+    let p =percentage as i64; // u8 to prevent negatives
+    let tax = Money::new(value.cents / (100 + p) * p);
     Amount {
         tax,
         bruto: value,
@@ -13,9 +13,9 @@ pub fn calc_bruto(value: f64, percentage: u8) -> Amount {
 }
 
 /// calc from netto
-pub fn calc_netto(value: f64, percentage: u8) -> Amount {
-    let p = f64::from(percentage); // u8 to prevent negatives
-    let tax = value * p / 100.0;
+pub fn calc_netto(value: Money, percentage: u8) -> Amount {
+    let p = percentage as i64; // u8 to prevent negatives
+    let tax = Money::new(value.cents * p / 100);
     Amount {
         tax,
         bruto: value + tax,
@@ -37,11 +37,11 @@ mod tests {
 
     #[test]
     fn bruto_hoog_correct() {
-        let bruto = 121.0;
+        let bruto = 121.0.into();
         let expected = Amount {
-            tax: 21.0,
+            tax: 21.0.into(),
             bruto,
-            netto: 100.0,
+            netto: 100.0.into(),
             percentage: 21,
         };
 
@@ -52,11 +52,11 @@ mod tests {
 
     #[test]
     fn bruto_laag_correct() {
-        let bruto = 109.0;
+        let bruto = 109.0.into();
         let expected = Amount {
-            tax: 9.0,
+            tax: 9.0.into(),
             bruto,
-            netto: 100.0,
+            netto: 100.0.into(),
             percentage: 9,
         };
 
@@ -67,8 +67,8 @@ mod tests {
 
     #[test]
     fn bruto_netto_consistent() {
-        let bruto = 1.50;
-        let netto = 1.24;
+        let bruto = 1.50.into();
+        let netto = 1.24.into();
 
         let actual_bruto = calc_bruto(bruto, 21);
         let actual_netto = calc_netto(netto, 21);
@@ -78,12 +78,12 @@ mod tests {
 
     #[test]
     fn bruto_rounding_correct() {
-        let bruto = 34.89;
+        let bruto = 34.89.into();
 
         let expected = Amount {
-            netto: 28.83,
+            netto: 28.83.into(),
             bruto,
-            tax: 6.06,
+            tax: 6.06.into(),
             percentage: 21,
         };
 
@@ -94,12 +94,12 @@ mod tests {
 
     #[test]
     fn netto_rounding_correct() {
-        let netto = 28.83;
+        let netto = 28.83.into();
 
         let expected = Amount {
             netto,
-            bruto: 34.89,
-            tax: 6.06,
+            bruto: 34.89.into(),
+            tax: 6.06.into(),
             percentage: 21,
         };
 
@@ -111,7 +111,7 @@ mod tests {
     #[test]
     #[ignore]
     fn bruto_hoog_negative() {
-        let bruto = -121.0;
+        let bruto = Money::from(-121.0);
 
         let actual = calc_bruto(bruto, 21);
         dbg!(actual);

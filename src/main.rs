@@ -25,14 +25,14 @@ fn clear() {
 /// ask for bruto value with percentage
 fn ask_bruto(percentage: u8) {
     let input: f64 = Input::new().with_prompt("Bedrag").interact_text().unwrap();
-    println!("{}", calc::calc_bruto(input, percentage));
+    println!("{}", calc::calc_bruto(input.into(), percentage));
     pause();
 }
 
 /// ask for bruto value with percentage
 fn ask_netto(percentage: u8) {
     let input: f64 = Input::new().with_prompt("Bedrag").interact_text().unwrap();
-    println!("{}", calc::calc_netto(input, percentage));
+    println!("{}", calc::calc_netto(input.into(), percentage));
     pause();
 }
 
