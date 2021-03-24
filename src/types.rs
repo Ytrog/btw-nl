@@ -1,4 +1,4 @@
-use std::{fmt::{self, Display}, ops::Add};
+use std::{fmt::{self, Display}, ops::{Add, Div}};
 #[derive(Debug, PartialEq)]
 pub struct Amount {
     pub netto: Money,
@@ -58,6 +58,14 @@ impl Add for Money {
 
     fn add(self, rhs: Self) -> Self::Output {
         Money::new(self.cents + rhs.cents)
+    }
+}
+
+impl Div for Money {
+    type Output = Self;
+
+    fn div(self, rhs: Self) -> Self::Output {
+        Money::new(self.cents / rhs.cents)
     }
 }
 
