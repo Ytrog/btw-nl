@@ -69,7 +69,7 @@ fn get_action() -> Action {
 }
 
 fn main() {
-    const VERSION: &'static str = env!("CARGO_PKG_VERSION");
+    const VERSION: &str = env!("CARGO_PKG_VERSION");
     let term = Term::stdout();
     term.write_line(&format!("BTW berekenaar v{}", VERSION))
         .unwrap();
