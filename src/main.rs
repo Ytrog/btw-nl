@@ -69,10 +69,12 @@ fn get_action() -> Action {
 }
 
 fn main() {
+    const VERSION: &'static str = env!("CARGO_PKG_VERSION");
     let term = Term::stdout();
-    term.write_line("BTW berekenaar").unwrap();
+    term.write_line(&format!("BTW berekenaar v{}", VERSION))
+        .unwrap();
     let _warn = Style::new().red();
-    term.set_title("BTW berekenaar");
+    term.set_title(&format!("BTW berekenaar v{}", VERSION));
 
     loop {
         match get_action() {
