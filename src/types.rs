@@ -45,6 +45,7 @@ impl From<f64> for Money {
     }
 }
 
+#[allow(clippy::from_over_into)]
 impl Into<f64> for Money {
     fn into(self) -> f64 {
         let cents = self.cents as f64;
