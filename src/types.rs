@@ -55,7 +55,7 @@ impl Into<f64> for Money {
 
 impl Display for Money {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "{}", (self.cents / 100.0))
+        write!(f, "{:.2}", (self.cents / 100.0))
     }
 }
 
