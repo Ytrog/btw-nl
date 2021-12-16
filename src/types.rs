@@ -17,7 +17,7 @@ impl std::fmt::Display for Amount {
         // various flags provided to format strings.
         write!(
             f,
-            "Netto: {:.2}\nBruto: {:.2}\nBtw bedrag: {:.2}\nBtw percentage: {}",
+            "Netto: {}\nBruto: {}\nBtw bedrag: {}\nBtw percentage: {}",
             self.netto, self.bruto, self.tax, self.percentage
         )
     }
