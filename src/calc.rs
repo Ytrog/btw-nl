@@ -110,6 +110,19 @@ mod tests {
         assert!(abs_rounding_error <= 10e-2, "abs={}", abs_rounding_error);
     }
 
+    // Test for issue #1
+    // https://github.com/Ytrog/btw-nl/issues/1
+    #[test]
+    fn no_single_digit_formatting() {
+        let amount = calc_bruto(1.90.into(), 21);
+
+        let expected = "Netto: 1.57\nBruto: 1.90\nBtw bedrag: 0.33\nBtw percentage: 21";
+
+        let actual = format!("{}", amount);
+
+        assert_feq!(expected, actual);
+    }
+
     #[test]
     #[ignore]
     fn bruto_hoog_negative() {
